@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto-Caffeine</title>
+    <script src="https://cdn.ethers.io/lib/ethers-5.7.umd.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700;800;900&display=swap" rel="stylesheet">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.7.0/ethers.umd.min.js"></script>
+<script src="config.js"></script>
+<script>
+    async function initializeProtocol() {
+    const provider = new ethers.BrowserProvider(window.ethereum);
+    const signer = await provider.getSigner();
+    // Ensure FACTORY_ADDRESS and FACTORY_ABI are loaded from config.js
+    const factory = new ethers.Contract(FACTORY_ADDRESS, FACTORY_ABI, signer);
+
+    try {
+        // This MUST match function createInstance() in your Solidity file
+        const tx = await factory.createInstance(); 
+        console.log("Transaction sent...");
+        await tx.wait(); 
+        
+        const userAddr = await signer.getAddress();
+        const instanceAddr = await factory.journalistToContract(userAddr);
+        localStorage.setItem("myInstance", instanceAddr);
+        
+        window.location.href = "dashboard.html";
+    } catch (error) {
+        console.error("Error:", error);
+    }
+}
+</script>
+
+    <style>
+        :root {
+            --bg-main: #E2D1A4;       /* Main background */
+            --bg-header: #C1A87D;     /* Header background */
+            --card-inner: #F7E3B5;    /* Lighter cream for the center card */
+            --box-fill: #C1A87D;      /* Tan fill for inputs and note box */
+            --text-brown: #51361A;    /* Primary brown for text/logo */
+            --btn-dark: #553A1F;      /* Dark brown for buttons */
+            --line-muted: #A3926D;    /* Footer line color */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-brown);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* --- Header --- */
+        header {
+            background-color: var(--bg-header);
+            padding: 15px 45px;
+            display: flex;
+            justify-content: space-between; 
+            align-items: center;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            color: var(--text-brown);
+            padding: 5px;
+        }
+
+        .logo-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-img {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 5px solid var(--text-brown);
+            background-color: #fff;
+            object-fit: cover;
+        }
+
+        .logo-name {
+            font-size: 1.3rem;
+            font-weight: 800;
+        }
+
+        /* --- Navbar --- */
+        .navbar {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-brown);
+            font-size: 0.8rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-link:hover {
+            opacity: 0.7;
+        }
+
+        /* --- Main Content --- */
+        main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .deploy-container {
+            background-color: var(--card-inner);
+            border: 1px solid #9B8A64;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 440px;
+            padding: 50px 35px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        h2 {
+            font-size: 1.4rem;
+            font-weight: 800;
+            margin-bottom: -10px;
+        }
+
+        .sub-header {
+            font-size: 0.75rem;
+            font-weight: 800;
+            margin-bottom: 5px;
+        }
+
+        .field-label {
+            font-size: 0.65rem;
+            font-weight: 700;
+            margin-bottom: -12px;
+        }
+
+        .input-box {
+            background-color: var(--box-fill);
+            border: none;
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--text-brown);
+            font-family: inherit;
+        }
+
+        .input-box::placeholder {
+            color: var(--text-brown);
+            opacity: 0.7;
+        }
+
+        .note-container {
+            background-color: var(--box-fill);
+            border: 1px solid #9B8A64;
+            border-radius: 18px;
+            padding: 22px 18px;
+            font-size: 0.8rem;
+            font-weight: 900;
+            line-height: 1.25;
+            margin-top: 10px;
+        }
+
+        .btn-init {
+            background-color: var(--btn-dark);
+            color: #fff;
+            border: none;
+            border-radius: 14px;
+            padding: 16px;
+            font-size: 0.8rem;
+            font-weight: 800;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        /* --- Footer --- */
+        footer {
+            padding: 0 50px 40px;
+            margin-top: auto;
+        }
+
+        .divider {
+            border-top: 1.5px solid var(--line-muted);
+            margin-bottom: 12px;
+        }
+
+        .copyright {
+            font-size: 0.6rem;
+            font-weight: 800;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-left">
+            <button class="back-btn" onclick="history.back()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M15 18l-6-6 6-6"/>
+                </svg>
+            </button>
+            <div class="logo-group">
+                <img src="coffee.jfif" alt="Logo" class="logo-img">
+                <div class="logo-name">Crypto-Caffeine</div>
+            </div>
+        </div>
+
+        <nav class="navbar">
+            <a href="index.html" class="nav-link">Home</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="deploy-container">
+            <h2>Deploy Your Protocol</h2>
+            <p class="sub-header">Initialize your immutable Tip Jar instance.</p>
+
+            <p class="field-label">Publication Name</p>
+            <input type="text" class="input-box" placeholder="e.g The Global Report">
+
+            <div class="note-container">
+                Note: This will execute the createTipJar function on the Factory Contract.
+            </div>
+
+            <button class="btn-init" onclick="initializeProtocol()">Initialize Instance</button>
+        </div>
+    </main>
+
+    <footer>
+        <div class="divider"></div>
+        <p class="copyright">© 2026 Crypto-Caffeine</p>
+    </footer>
+
+</body>
+</html>

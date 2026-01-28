@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto-Caffeine | Support the Author</title>
+    <script src="https://cdn.ethers.io/lib/ethers-5.7.umd.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-main: #E3D1A5;       
+            --bg-header: #C2A97E;     
+            --card-bg: #F8E0B0;       
+            --box-tan: #C2A97E;       
+            --text-brown: #52371B;    
+            --btn-brown: #583D21;     
+            --border-muted: #A3936E;  
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-brown);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* --- Header --- */
+        header {
+            background-color: var(--bg-header);
+            padding: 18px 48px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            color: var(--text-brown);
+            padding: 5px;
+        }
+
+        .logo-wrap {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-img {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            border: 5px solid var(--text-brown);
+            background-color: #fff;
+            object-fit: cover;
+        }
+
+        .brand-name {
+            font-size: 1.35rem;
+            font-weight: 800;
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-brown);
+            font-size: 0.8rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-link:hover {
+            opacity: 0.7;
+        }
+
+        /* --- Centered Content --- */
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .page-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 35px;
+            text-align: center;
+        }
+
+        .donation-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-muted);
+            border-radius: 22px;
+            width: 100%;
+            max-width: 500px;
+            padding: 60px 50px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .input-label {
+            font-size: 0.65rem;
+            font-weight: 700;
+        }
+
+        .field {
+            background-color: var(--box-tan);
+            border: none;
+            border-radius: 8px;
+            padding: 14px 18px;
+            font-family: inherit;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-brown);
+        }
+
+        .field::placeholder {
+            color: var(--text-brown);
+            opacity: 0.6;
+        }
+
+        .btn-send {
+            background-color: var(--btn-brown);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            padding: 16px;
+            font-size: 0.8rem;
+            font-weight: 800;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        /* --- Footer --- */
+        footer {
+            padding: 0 48px 45px;
+            width: 100%;
+            margin-top: auto;
+        }
+
+        .divider {
+            border-top: 1.5px solid var(--border-muted);
+            margin-bottom: 18px;
+        }
+
+        .copyright {
+            font-size: 0.6rem;
+            font-weight: 800;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-left">
+            <button class="back-btn" onclick="history.back()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M15 18l-6-6 6-6"/>
+                </svg>
+            </button>
+            <div class="logo-wrap">
+                <img src="coffee.jfif" alt="Logo" class="logo-img">
+                <div class="brand-name">Crypto-Caffeine</div>
+            </div>
+        </div>
+
+        <nav class="navbar">
+            <a href="index.html" class="nav-link">Home</a>
+        </nav>
+    </header>
+
+    <main>
+        <h2 class="page-title">Support the Author</h2>
+
+        <div class="donation-card">
+            <div class="input-group">
+                <label class="input-label">Name</label>
+                <input type="text" id="donorName" class="field" placeholder="e.g Satoshi Nakamoto">
+            </div>
+
+            <div class="input-group">
+                <label class="input-label">Message</label>
+                <input type="text" id="donorMessage" class="field" placeholder="e.g Good Job!!!!!">
+            </div>
+
+            <div class="input-group">
+                <label class="input-label">Amount</label>
+                <input type="text" id="donationAmount" class="field" placeholder="e.g 1.24">
+            </div>
+
+            <button class="btn-send" onclick="sendCoffee()">Send ETH</button>
+        </div>
+    </main>
+
+    <footer>
+        <div class="divider"></div>
+        <p class="copyright">© 2026 Crypto-Caffeine</p>
+    </footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.7.0/ethers.umd.min.js"></script>
+<script src="config.js"></script>
+<script>
+    async function sendCoffee() {
+        const name = document.getElementById("donorName").value;
+        const message = document.getElementById("donorMessage").value;
+        const amount = document.getElementById("donationAmount").value;
+
+        if (!amount || isNaN(amount)) {
+            alert("Please enter a valid ETH amount.");
+            return;
+        }
+
+        try {
+            const provider = new ethers.BrowserProvider(window.ethereum);
+            const signer = await provider.getSigner();
+            
+            // Get the journalist's contract address from the URL (iframe mode) or storage
+            const urlParams = new URLSearchParams(window.location.search);
+            const instanceAddr = urlParams.get('addr') || localStorage.getItem("myInstance"); 
+
+            if (!instanceAddr) {
+                alert("No journalist contract found!");
+                return;
+            }
+
+            const contract = new ethers.Contract(instanceAddr, INSTANCE_ABI, signer);
+
+            console.log("Sending donation to:", instanceAddr);
+            const tx = await contract.buyCoffee(name, message, {
+                value: ethers.parseEther(amount)
+            });
+            
+            alert("Transaction sent! Waiting for confirmation...");
+            await tx.wait(); // cite: 4.3
+            alert("Support successfully sent to the author!");
+        } catch (error) {
+            console.error("Donation failed:", error);
+            alert("Transaction failed. Check the console for details.");
+        }
+    }
+</script>
+
+</body>
+</html>

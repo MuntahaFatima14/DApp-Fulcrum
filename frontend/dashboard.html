@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto-Caffeine | Dashboard</title>
+    <script src="https://cdn.ethers.io/lib/ethers-5.7.umd.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-main: #E3D1A5;       
+            --bg-header: #C2A97E;     
+            --card-bg: #F8E0B0;       
+            --box-tan: #C2A97E;       
+            --text-brown: #52371B;    
+            --btn-brown: #583D21;     
+            --border-muted: #A3936E;  
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-brown);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* --- Header --- */
+        header {
+            background-color: var(--bg-header);
+            padding: 18px 48px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            color: var(--text-brown);
+            padding: 5px;
+        }
+
+        .logo-wrap {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            border: 5px solid var(--text-brown);
+            background-color: #fff;
+            object-fit: cover;
+        }
+
+        .brand {
+            font-size: 1.35rem;
+            font-weight: 800;
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-brown);
+            font-size: 0.8rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-link:hover {
+            opacity: 0.7;
+        }
+
+        /* --- Main Content --- */
+        main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        .dashboard-container {
+            display: inline-flex;
+            flex-direction: column;
+            width: auto;
+        }
+
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 800;
+            margin-bottom: 30px;
+            text-align: left; 
+        }
+
+        .dashboard-row {
+            display: flex;
+            gap: 28px;
+            align-items: stretch;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-muted);
+            border-radius: 22px;
+            padding: 40px;
+        }
+
+        .balance-box {
+            width: 320px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .label-text {
+            font-size: 0.65rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        .eth-val {
+            font-size: 3.2rem;
+            font-weight: 900;
+            margin-bottom: 45px;
+            letter-spacing: -1px;
+        }
+
+        .btn-action {
+            background-color: var(--btn-brown);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            padding: 14px;
+            font-size: 0.7rem;
+            font-weight: 800;
+            cursor: pointer;
+            width: 100%;
+            margin-top: auto;
+        }
+
+        .embed-box {
+            width: 600px;
+        }
+
+        .embed-header {
+            font-size: 1.35rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+        }
+
+        .embed-info {
+            font-size: 0.75rem;
+            font-weight: 800;
+            margin-bottom: 25px;
+            line-height: 1.4;
+        }
+
+        .code-snippet {
+            background-color: var(--box-tan);
+            border: 1px solid var(--border-muted);
+            border-radius: 20px;
+            padding: 30px 25px;
+            font-size: 0.78rem;
+            font-weight: 900;
+            line-height: 1.5;
+            word-break: break-all;
+        }
+
+        /* --- Footer --- */
+        footer {
+            padding: 0 48px 45px;
+            width: 100%;
+        }
+
+        .line-divider {
+            border-top: 1.5px solid var(--border-muted);
+            margin-bottom: 18px;
+        }
+
+        .copy-info {
+            font-size: 0.6rem;
+            font-weight: 800;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 980px) {
+            .dashboard-row {
+                flex-direction: column;
+            }
+            .balance-box, .embed-box {
+                width: 100%;
+                max-width: 500px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-left">
+            <button class="back-btn" onclick="history.back()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+            </button>
+            <div class="logo-wrap">
+                <img src="coffee.jfif" alt="Crypto-Caffeine" class="logo-icon">
+                <div class="brand">Crypto-Caffeine</div>
+            </div>
+        </div>
+        
+        <nav class="navbar">
+            <a href="index.html" class="nav-link">Home</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="dashboard-container">
+            <h2 class="section-title">Creator's Dashboard</h2>
+
+            <div class="dashboard-row">
+                <section class="card balance-box">
+                    <p class="label-text">Contract Balance</p>
+                    <div class="eth-val">1.24 ETH</div>
+                    <button class="btn-action">Withdraw Funds</button>
+                </section>
+
+                <section class="card embed-box">
+                    <h3 class="embed-header">Embed Your Widget</h3>
+                    <p class="embed-info">Use this iframe code to add Crypto-Caffeine to your website.</p>
+                    
+                    <div class="code-snippet">
+                        &lt;iframe src="file:///C:/Users/Five%20Star%20Computer/Desktop/Project/widget.html" width="350px" height="500px" style="border:none;"&gt;&lt;/iframe&gt;
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="line-divider"></div>
+        <p class="copy-info">© 2026 Crypto-Caffeine</p>
+    </footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.7.0/ethers.umd.min.js"></script>
+<script src="config.js"></script>
+<script>
+    async function loadDashboard() {
+        const instanceAddr = localStorage.getItem("myInstance");
+        if (!instanceAddr) return;
+
+        const provider = new ethers.BrowserProvider(window.ethereum);
+        const balance = await provider.getBalance(instanceAddr);
+        
+        // Update the UI with the real balance
+        document.querySelector(".eth-val").innerText = ethers.formatEther(balance) + " ETH";
+        
+        // Update the iframe code snippet with the actual address
+        const iframeCode = `<iframe src="widget.html?addr=${instanceAddr}" width="350px" height="500px" style="border:none;"></iframe>`;
+        document.querySelector(".code-snippet").innerText = iframeCode;
+    }
+
+    async function withdraw() {
+        const provider = new ethers.BrowserProvider(window.ethereum);
+        const signer = await provider.getSigner();
+        const instanceAddr = localStorage.getItem("myInstance");
+        const contract = new ethers.Contract(instanceAddr, INSTANCE_ABI, signer);
+        
+        try {
+            const tx = await contract.withdrawTips();
+            await tx.wait();
+            alert("Withdrawal successful!");
+            loadDashboard();
+        } catch (error) {
+            console.error("Withdrawal failed", error);
+        }
+    }
+
+    // Run on page load
+    window.onload = loadDashboard;
+    document.querySelector(".btn-action").onclick = withdraw;
+</script>
+</body>
+</html>
