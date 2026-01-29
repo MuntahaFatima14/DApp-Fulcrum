@@ -78,3 +78,70 @@ body {
 .shared-footer { padding: 40px 50px; width: 100%; margin-top: auto; }
 .shared-footer-line { border-top: 1.5px solid var(--border-line); margin-bottom: 15px; }
 .shared-copyright { font-size: 0.65rem; font-weight: 800; opacity: 0.7; }
+
+
+
+/* ============================================================
+MATERIAL DESIGN & MEDIA QUERIES 
+============================================================ */
+
+/* Material Design: Smooth Motion (Cubic Bezier Easing) */
+.back-btn-circle, 
+.shared-nav-link, 
+.shared-logo-circle {
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Hover elevation for Material feel */
+.shared-nav-link:hover {
+    color: var(--accent-brown);
+    transform: translateY(-1px);
+}
+
+/* --- Responsive Breakpoints --- */
+
+/* Tablets (iPad, etc.) */
+@media (max-width: 992px) {
+    .shared-header {
+        padding: 15px 30px;
+    }
+}
+
+/* Mobile Devices (Phones) */
+@media (max-width: 768px) {
+    .shared-header {
+        padding: 15px 20px;
+        flex-direction: column; /* Stacks logo and nav for better spacing */
+        gap: 15px;
+        text-align: center;
+    }
+
+    .header-left-group {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .shared-navbar {
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap; /* Keeps links from breaking the layout */
+        gap: 12px;
+    }
+
+    .shared-footer {
+        padding: 30px 20px;
+        text-align: center;
+    }
+}
+
+/* Extra Small Devices */
+@media (max-width: 480px) {
+    .shared-brand-name {
+        font-size: 1.1rem;
+    }
+    
+    .shared-nav-link {
+        font-size: 0.65rem;
+        letter-spacing: 0.5px;
+    }
+}
