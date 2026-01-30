@@ -1,5 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Navigate to dashboard.html on initialize button click
+    // =========================
+    // 1. Navigate to dashboard.html on init button click
+    // =========================
     const initBtn = document.querySelector('.btn-init');
     if (initBtn) {
         initBtn.addEventListener('click', () => {
@@ -7,7 +9,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Material Design Ripple Effect for all buttons
+    // =========================
+    // 2. Material Design Ripple Effect for all buttons
+    // =========================
     const buttons = document.querySelectorAll('button');
     buttons.forEach(btn => {
         btn.addEventListener('click', function(e) {
@@ -21,4 +25,37 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => ripple.remove(), 600);
         });
     });
+
+    // =========================
+    // 3. Connect Wallet Functionality
+    // =========================
+    const connectBtn = document.querySelector('.connect-btn');
+
+    async function connectWallet() {
+        if (typeof window.ethereum !== 'undefined') {
+            try {
+                // Request wallet connection
+                const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                const account = accounts[0];
+
+                // Display connected account in the button
+                connectBtn.textContent = account.slice(0, 6) + '...' + account.slice(-4);
+                connectBtn.style.backgroundColor = '#4caf50'; // Optional: change color after connect
+                console.log('Connected account:', account);
+
+                // Optional: redirect to dashboard after connect
+                // window.location.href = 'dashboard.html';
+
+            } catch (err) {
+                console.error('User rejected connection:', err);
+                alert('Connection rejected!');
+            }
+        } else {
+            alert('MetaMask not found. Please install a crypto wallet!');
+        }
+    }
+
+    if (connectBtn) {
+        connectBtn.addEventListener('click', connectWallet);
+    }
 });
