@@ -1,42 +1,21 @@
-import { connectContract } from "./blockchain-interaction.js";
-
-const deployBtn = document.getElementById('deployBtn');
-const pubNameInput = document.getElementById('pubName');
+import { connectFactory } from "./blockchain-interaction.js";
 
 async function handleDeployment() {
+    const pubNameInput = document.getElementById('pubName');
+    const deployBtn = document.getElementById('deployBtn');
+
     try {
-        deployBtn.innerText = "Connecting...";
-        deployBtn.disabled = true;
+        const factory = await connectFactory();
+        const link = pubNameInput.value; // This maps to _iframeLink in your contract
 
-        // 1. Get the contract instance
-        const factory = await connectContract();
+        const tx = await factory.createJar(link);
+        console.log("Transaction Hash:", tx.hash);
         
-        // 2. Get input
-        const name = pubNameInput.value;
-        if (!name) {
-            alert("Please enter a name!");
-            return;
-        }
-
-        // 3. Call the smart contract function
-        console.log("Initiating transaction...");
-        const tx = await factory.createTipJar(name);
-        
-        alert("Transaction sent! Please wait for confirmation.");
-        await tx.wait(); // Wait for the block to be mined
-
-        alert("Successfully deployed!");
-        window.location.href = 'dashboard.html';
-
+        await tx.wait();
+        alert("Jar Created Successfully!");
+        window.location.href = 'creatosjournal.html';
     } catch (error) {
-        console.error("Deployment failed:", error);
-        alert("Error: " + (error.reason || error.message));
-    } finally {
-        deployBtn.innerText = "Initialize Instance";
-        deployBtn.disabled = false;
+        console.error(error);
+        alert("Deployment failed.");
     }
-}
-
-if (deployBtn) {
-    deployBtn.addEventListener('click', handleDeployment);
 }

@@ -4,6 +4,9 @@
     <meta charset="UTF-8"><title>Global Dashboard</title>
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.7.0/index.umd.min.js"></script>
+<script type="module" src="global-logic.js"></script>
+
 </head>
 <body>
     <header class="shared-header">
@@ -25,16 +28,16 @@
         <div style="display:flex; gap:20px; width:100%; max-width:800px; margin-bottom:30px;">
             <div style="background-color:var(--bg-header); flex:1; padding:20px; border-radius:18px;">
                 <p style="font-size:0.65rem; font-weight:800; text-transform:uppercase;">Total Tips (ETH)</p>
-                <div style="font-size:1.8rem; font-weight:900; color:black;">1.24 ETH</div>
+                <div id="totalEth" style="font-size:1.8rem; font-weight:900; color:black;">1.24 ETH</div>
             </div>
             <div style="background-color:var(--bg-header); flex:1; padding:20px; border-radius:18px;">
                 <p style="font-size:0.65rem; font-weight:800; text-transform:uppercase;">Supporters</p>
-                <div style="font-size:1.8rem; font-weight:900; color:black;">32</div>
+                <div id="totalSupporters" style="font-size:1.8rem; font-weight:900; color:black;">32</div>
             </div>
         </div>
         <section style="background-color:var(--card-bg); width:100%; max-width:800px; border-radius:25px; padding:40px;">
             <h3 style="font-size:1.3rem; font-weight:900; margin-bottom:30px;">Recent Memos</h3>
-            <table style="width:100%; border-collapse:collapse; font-size:0.75rem; font-weight:800;">
+            <table id="memosTable" style="width:100%; border-collapse:collapse; font-size:0.75rem; font-weight:800;">
                 <tr style="border-bottom:1.5px solid var(--logo-border);"><th style="text-align:left; padding-bottom:15px;">From</th><th style="text-align:left;">To</th><th style="text-align:left;">Amount</th></tr>
                 <tr><td style="padding:20px 0;">0x3FC20b...a72F610c8</td><td>0x3FC20b...a72F610c8</td><td>0.05 ETH</td></tr>
             </table>

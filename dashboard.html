@@ -4,6 +4,10 @@
     <meta charset="UTF-8"><title>Creator's Dashboard</title>
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.7.0/index.umd.min.js"></script>
+    <script type="module" src="creator-dashboard-logic.js"></script>
+
+
 </head>
 <body>
     <header class="shared-header">
@@ -25,13 +29,13 @@
         <div style="display:flex; gap:25px; align-items:stretch;">
             <section style="background-color:var(--card-bg); border-radius:20px; padding:35px; flex:1; max-width:320px;">
                 <p style="font-size:0.65rem; font-weight:800; text-transform:uppercase; margin-bottom:10px;">Contract Balance</p>
-                <div style="font-size:3rem; font-weight:900; margin-bottom:35px; color:black;">1.24 ETH</div>
-                <button style="background-color:var(--btn-bg); color:#fff; border:none; border-radius:8px; padding:12px; font-size:0.65rem; font-weight:800; cursor:pointer; width:100%;">Withdraw Funds</button>
+                <div id="contractBalance" style="font-size:3rem; font-weight:900; margin-bottom:35px; color:black;">1.24 ETH</div>
+                <button id="withdrawBtn" style="background-color:var(--btn-bg); color:#fff; border:none; border-radius:8px; padding:12px; font-size:0.65rem; font-weight:800; cursor:pointer; width:100%;">Withdraw Funds</button>
             </section>
             <section style="background-color:var(--card-bg); border-radius:20px; padding:35px; flex:2;">
                 <h3 style="font-size:1.3rem; font-weight:800; margin-bottom:12px;">Embed Your Widget</h3>
                 <p style="font-size:0.75rem; font-weight:800; margin-bottom:25px;">Use this iFrame code to add Crypto-Caffeine to your website.</p>
-                <div style="background-color:var(--input-fill); border-radius:18px; padding:25px; font-size:0.75rem; font-weight:800; word-break:break-all;">&lt;iframe src="https://crypto-caffeine.io/widget/0x71c...3a2f" width="350px" height="500px" style="border:none;"&gt;&lt;/iframe&gt;</div>
+                <div id="iframeCode" style="background-color:var(--input-fill); border-radius:18px; padding:25px; font-size:0.75rem; font-weight:800; word-break:break-all;">&lt;iframe src="https://crypto-caffeine.io/widget/0x71c...3a2f" width="350px" height="500px" style="border:none;"&gt;&lt;/iframe&gt;</div>
             </section>
         </div>
     </main>
