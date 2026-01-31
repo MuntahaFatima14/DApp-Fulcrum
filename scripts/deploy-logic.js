@@ -13,7 +13,7 @@ async function handleDeployment() {
         
         await tx.wait();
         alert("Jar Created Successfully!");
-        window.location.href = 'creatosjournal.html';
+        window.location.href = 'pages/creatosjournal.html';
     } catch (error) {
         console.error(error);
         alert("Deployment failed.");
