@@ -1,0 +1,1 @@
+export const bottleABI = [ /* paste the array here */ ];

@@ -1,0 +1,1 @@
+export const factoryABI = [ /* paste the array here */ ];
